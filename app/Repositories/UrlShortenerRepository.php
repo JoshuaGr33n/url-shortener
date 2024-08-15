@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\Cache;
-use  Illuminate\Support\Str;
+
 
 /**
  * Repository class for URL shortening.
@@ -29,7 +29,7 @@ class UrlShortenerRepository implements UrlShortenerRepositoryInterface
      * @param string $url The original URL to encode.
      * @return string The generated short key.
      */
-    public function encode(string $url): string
+    public function encode(string $url, string $generateKey): string
     {
         // Check if the URL is already encoded
         if (isset($this->urlKeyMap[$url])) {
@@ -37,9 +37,9 @@ class UrlShortenerRepository implements UrlShortenerRepositoryInterface
         }
 
         // Generate a unique key
-        $key = $this->generateKey();
+        $key = $generateKey;
         while (isset($this->keyUrlMap[$key])) {
-            $key = $this->generateKey();
+            $key = $generateKey;
         }
 
         // Save the URL and key mappings
@@ -64,24 +64,5 @@ class UrlShortenerRepository implements UrlShortenerRepositoryInterface
         return $this->keyUrlMap[$key] ?? null;
     }
 
-    /**
-     * Generates a random key for URL shortening.
-     *
-     * @param int $length The length of the generated key (default is 6).
-     * @return string The generated random key.
-     */
-    private function generateKey(): string
-    {
-       
-
-        // // Generate a random string of specified length
-       
-
-      
-        $length = 10;
-        return Str::random($length);
-
-
-
-    }
+    
 }
