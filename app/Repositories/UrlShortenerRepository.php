@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\Cache;
+use  Illuminate\Support\Str;
 
 /**
  * Repository class for URL shortening.
@@ -69,17 +70,18 @@ class UrlShortenerRepository implements UrlShortenerRepositoryInterface
      * @param int $length The length of the generated key (default is 6).
      * @return string The generated random key.
      */
-    private function generateKey($length = 6): string
+    private function generateKey(): string
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
+       
 
-        // Generate a random string of specified length
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
+        // // Generate a random string of specified length
+       
 
-        return $randomString;
+      
+        $length = 10;
+        return Str::random($length);
+
+
+
     }
 }
